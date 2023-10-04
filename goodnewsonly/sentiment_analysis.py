@@ -1,7 +1,6 @@
-# sentiment_analysis.py
-
 from nltk.sentiment import SentimentIntensityAnalyzer
 from typing import Dict
+
 
 class SentimentAnalyzer:
     def __init__(self):

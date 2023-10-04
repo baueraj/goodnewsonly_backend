@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from .api_models import AnalysisRequest
 from .core import process_website
 
-
 app = FastAPI()
 
 # CORS middleware settings
@@ -14,6 +13,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.post("/analyze")
 async def analyze(request: AnalysisRequest):

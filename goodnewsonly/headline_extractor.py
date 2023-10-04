@@ -1,8 +1,7 @@
-# headline_extractor.py
-
 import requests
 from bs4 import BeautifulSoup
 from typing import List
+
 
 class BaseNewsDomain:
     def __init__(self, url: str):
@@ -15,11 +14,13 @@ class BaseNewsDomain:
     def extract_headlines(self) -> List[str]:
         raise NotImplementedError("This method should be overridden by subclasses.")
 
+
 class CNNNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
         headlines = soup.find_all('h3', class_='cd__headline')
         return [headline.text for headline in headlines]
+
 
 class FoxNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
@@ -27,11 +28,13 @@ class FoxNewsDomain(BaseNewsDomain):
         headlines = soup.find_all('h2', class_='title')
         return [headline.text for headline in headlines]
 
+
 class BBCNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
         headlines = soup.find_all('h3', class_='gs-c-promo-heading__title')
         return [headline.text for headline in headlines]
+
 
 def extract_from_known_domain(url: str) -> List[str]:
     if "cnn.com" in url:
@@ -43,6 +46,7 @@ def extract_from_known_domain(url: str) -> List[str]:
     else:
         return []
 
+
 class DOMParser:
     def __init__(self, html: str):
         self.html = html
@@ -52,9 +56,11 @@ class DOMParser:
         headlines = soup.find_all('h1')
         return [headline.text for headline in headlines]
 
+
 def extract_from_general_domain(html: str) -> List[str]:
     parser = DOMParser(html)
     return parser.extract_headlines()
+
 
 def extract_headlines(url: str) -> List[str]:
     headlines = extract_from_known_domain(url)
