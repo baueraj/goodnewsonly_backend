@@ -3,7 +3,7 @@ from .sentiment_analysis import SentimentAnalyzer
 
 
 def process_website(url: str):
-    """Process the given website URL to extract and analyze headlines."""
+    """Process the given website url to extract and analyze headlines"""
     headlines = extract_headlines(url)
     negative_headlines = []
     analyzer = SentimentAnalyzer()
