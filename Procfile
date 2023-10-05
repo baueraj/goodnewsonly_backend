@@ -1,1 +1,1 @@
-web: uvicorn package_name.serve:app --host=0.0.0.0 --port=${PORT}
+web: uvicorn goodnewsonly.serve:app --host=0.0.0.0 --port=${PORT}
