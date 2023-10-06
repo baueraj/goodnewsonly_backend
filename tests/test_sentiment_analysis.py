@@ -1,4 +1,5 @@
 import pytest
+
 from goodnewsonly.sentiment_analysis import SentimentAnalyzer
 
 

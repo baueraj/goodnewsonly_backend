@@ -1,15 +1,16 @@
+from typing import List
+
 import requests
 from bs4 import BeautifulSoup
-from typing import List
 
 
 class BaseNewsDomain:
     def __init__(self, url: str):
         self.url = url
 
-    def _get_page_content(self):
+    def _get_page_content(self) -> BeautifulSoup:
         response = requests.get(self.url)
-        return BeautifulSoup(response.text, 'html.parser')
+        return BeautifulSoup(response.text, "html.parser")
 
     def extract_headlines(self) -> List[str]:
         raise NotImplementedError("This method should be overridden by subclasses.")
@@ -18,21 +19,21 @@ class BaseNewsDomain:
 class CNNNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
-        headlines = soup.find_all('h3', class_='cd__headline')
+        headlines = soup.find_all("h3", class_="cd__headline")
         return [headline.text for headline in headlines]
 
 
 class FoxNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
-        headlines = soup.find_all('h2', class_='title')
+        headlines = soup.find_all("h2", class_="title")
         return [headline.text for headline in headlines]
 
 
 class BBCNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
-        headlines = soup.find_all('h3', class_='gs-c-promo-heading__title')
+        headlines = soup.find_all("h3", class_="gs-c-promo-heading__title")
         return [headline.text for headline in headlines]
 
 
@@ -52,8 +53,8 @@ class DOMParser:
         self.html = html
 
     def extract_headlines(self) -> List[str]:
-        soup = BeautifulSoup(self.html, 'html.parser')
-        headlines = soup.find_all('h1')
+        soup = BeautifulSoup(self.html, "html.parser")
+        headlines = soup.find_all("h1")
         return [headline.text for headline in headlines]
 
 

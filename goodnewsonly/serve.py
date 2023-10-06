@@ -1,9 +1,12 @@
 import logging
 import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from .api_models import AnalysisRequest
 from .core import process_website
+
 #
 # HOSTNAME = os.environ.get("HOSTNAME", "unknown")
 #

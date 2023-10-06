@@ -1,4 +1,5 @@
 import pytest
+
 from goodnewsonly.headline_extractor import extract_headlines
 
 
