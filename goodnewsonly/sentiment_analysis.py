@@ -4,7 +4,7 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 
 
 class SentimentAnalyzer:
-    def __init__(self):
+    def __init__(self) -> None:
         self.sia = SentimentIntensityAnalyzer()
 
     def analyze_sentiment(self, headline: str) -> str:

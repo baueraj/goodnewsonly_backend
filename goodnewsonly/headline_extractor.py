@@ -1,6 +1,6 @@
 from typing import List
 
-import requests
+import requests  # type: ignore
 from bs4 import BeautifulSoup
 
 
@@ -8,7 +8,7 @@ class BaseNewsDomain:
     def __init__(self, url: str):
         self.url = url
 
-    def _get_page_content(self) -> BeautifulSoup:
+    def _get_page_content(self) -> BeautifulSoup:  # type: ignore
         response = requests.get(self.url)
         return BeautifulSoup(response.text, "html.parser")
 
