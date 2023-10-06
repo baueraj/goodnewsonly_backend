@@ -1,6 +1,10 @@
-from typing import Dict
+import os
 
+import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+nltk.data.path.append(os.path.join(current_dir, "resources"))  # Location of vader_lexicon.txt for self.sia
 
 
 class SentimentAnalyzer:
