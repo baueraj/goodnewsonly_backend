@@ -1,15 +1,14 @@
 import os
 
-import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-nltk.data.path.append(os.path.join(current_dir, "resources"))  # Location of vader_lexicon.txt for self.sia
+lexicon_file_path = os.path.join(current_dir, "resources", "vader_lexicon.txt")
 
 
 class SentimentAnalyzer:
     def __init__(self) -> None:
-        self.sia = SentimentIntensityAnalyzer()
+        self.sia = SentimentIntensityAnalyzer(lexicon_file=lexicon_file_path)
 
     def analyze_sentiment(self, headline: str) -> str:
         sentiment_scores = self.sia.polarity_scores(headline)
