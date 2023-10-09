@@ -1,1 +1,1 @@
-goodnewsonly/resources/quant_model_weights_and_arch.pth.gz !text !filter !merge !diff
+goodnewsonly/resources/quant_model_weights_and_arch.pth.gz filter=lfs diff=lfs merge=lfs -text
