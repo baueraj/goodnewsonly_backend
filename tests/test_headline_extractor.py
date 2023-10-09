@@ -2,10 +2,8 @@ from goodnewsonly.headline_extractor import extract_headlines
 
 
 def test_cnn_extraction() -> None:
-    # Mock URL for CNN
     headlines = extract_headlines("https://www.cnn.com")
     assert isinstance(headlines, list)
-    # You can add more specific tests if you have mock data or expected headlines.
 
 
 def test_foxnews_extraction() -> None:
