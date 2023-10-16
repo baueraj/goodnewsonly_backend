@@ -33,7 +33,9 @@ class FoxNewsDomain(BaseNewsDomain):
 class BBCNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
-        headlines = soup.find_all("h3", class_="gs-c-promo-heading__title")
+        headlines_h3 = soup.find_all("h3", class_="gs-c-promo-heading__title")
+        headlines_span = soup.find_all("span", class_="gs-c-promo-heading__title")
+        headlines = headlines_h3 + headlines_span
         return [headline.text for headline in headlines]
 
 
