@@ -19,8 +19,12 @@ class BaseNewsDomain:
 class CNNNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
-        headlines = soup.find_all("h3", class_="cd__headline")
-        return [headline.text for headline in headlines]
+
+        # Extracting headlines from <span> elements with specific class
+        headline_spans = soup.find_all("span", class_="container__headline-text")
+        headlines = [span.text.strip() for span in headline_spans]
+
+        return headlines
 
 
 class FoxNewsDomain(BaseNewsDomain):

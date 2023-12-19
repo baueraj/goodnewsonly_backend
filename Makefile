@@ -1,7 +1,7 @@
 .PHONY: test
 
 test:
-	pytest tests/
+	pytest -s tests/
 
 check:
 	black .
