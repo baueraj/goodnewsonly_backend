@@ -13,14 +13,13 @@ class BaseNewsDomain:
         return BeautifulSoup(response.text, "html.parser")
 
     def extract_headlines(self) -> List[str]:
-        raise NotImplementedError("This method should be overridden by subclasses.")
+        raise NotImplementedError("This method should be overridden by subclasses")
 
 
 class CNNNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
 
-        # Extracting headlines from <span> elements with specific class
         headline_spans = soup.find_all("span", class_="container__headline-text")
         headlines = [span.text.strip() for span in headline_spans]
 
@@ -30,8 +29,13 @@ class CNNNewsDomain(BaseNewsDomain):
 class FoxNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
-        headlines = soup.find_all("h2", class_="title")
-        return [headline.text for headline in headlines]
+        headlines = []
+
+        for tag in ["h2", "h3"]:
+            for headline in soup.find_all(tag, class_="title"):
+                headlines.append(headline.get_text(strip=True))
+
+        return headlines
 
 
 class BBCNewsDomain(BaseNewsDomain):
