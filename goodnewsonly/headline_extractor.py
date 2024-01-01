@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 import requests  # type: ignore
@@ -41,10 +42,31 @@ class FoxNewsDomain(BaseNewsDomain):
 class BBCNewsDomain(BaseNewsDomain):
     def extract_headlines(self) -> List[str]:
         soup = self._get_page_content()
-        headlines_h3 = soup.find_all("h3", class_="gs-c-promo-heading__title")
-        headlines_span = soup.find_all("span", class_="gs-c-promo-heading__title")
-        headlines = headlines_h3 + headlines_span
-        return [headline.text for headline in headlines]
+        script_tag = soup.find("script", id="__NEXT_DATA__")
+        if script_tag:
+            json_data = json.loads(script_tag.string)
+            headlines = []
+            # Navigate through the JSON structure to find headlines
+            try:
+                sections = json_data["props"]["pageProps"]["page"]['@"news",']["sections"]
+                for section in sections:
+                    for content in section["content"]:
+                        if "title" in content:
+                            headlines.append(content["title"])
+            except KeyError:
+                pass
+            return headlines
+        else:
+            return []
+
+
+# class BBCNewsDomain(BaseNewsDomain):
+#     def extract_headlines(self) -> List[str]:
+#         soup = self._get_page_content()
+#         headlines_h3 = soup.find_all("h3", class_="gs-c-promo-heading__title")
+#         headlines_span = soup.find_all("span", class_="gs-c-promo-heading__title")
+#         headlines = headlines_h3 + headlines_span
+#         return [headline.text for headline in headlines]
 
 
 def extract_from_known_domain(url: str) -> List[str]:

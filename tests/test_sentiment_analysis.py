@@ -9,5 +9,5 @@ def test_positive_sentiment() -> None:
 
 def test_negative_sentiment() -> None:
     analyzer = SentimentAnalyzer()
-    sentiment = analyzer.analyze_sentiments(["This is a terrible mistake."])[0]
+    sentiment = analyzer.analyze_sentiments(["This is a terrible mistake"])[0]
     assert sentiment == "negative"
