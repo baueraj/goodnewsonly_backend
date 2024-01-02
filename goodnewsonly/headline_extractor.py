@@ -74,7 +74,7 @@ def extract_from_known_domain(url: str) -> List[str]:
         return CNNNewsDomain(url).extract_headlines()
     elif "foxnews.com" in url:
         return FoxNewsDomain(url).extract_headlines()
-    elif "bbc.com/news" in url:
+    elif "bbc.com" in url or "bbc.co.uk" in url:
         return BBCNewsDomain(url).extract_headlines()
     else:
         return []
